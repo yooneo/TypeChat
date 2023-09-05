@@ -6,6 +6,13 @@ export interface Invoice {
     items: (LineItem | UnknownText)[];
 }
 
+// Ues thi type for answers to invoice questions
+export interface Question{
+    type: 'question',
+    // A question that's being asked related to invoice processing
+    query: string;
+}
+
 // Use this type for items that match nothing else
 export interface UnknownText {
     type: 'unknown',
@@ -48,7 +55,7 @@ export type OptionQuantity = 'no' | 'light' | 'regular' | 'extra' | number;
 
 export interface DateTime {
     type: 'dateTime';
-    // date (example: March 22, 2024)
+    // a date string of the format MM/DD/YYYY
     date?: string;
 }
 
