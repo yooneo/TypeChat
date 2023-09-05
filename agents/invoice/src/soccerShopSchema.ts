@@ -7,10 +7,13 @@ export interface Invoice {
 }
 
 // Ues thi type for answers to invoice questions
-export interface Question{
+export interface Question {
     type: 'question',
-    // A question that's being asked related to invoice processing
-    query: string;
+    intent: 'asking a question' | 'request task' | 'unknown',
+    regarding: 'invoice' | 'invoice processing' | 'others',
+    // Only if the input is a question regarding invoice.A question that's being asked related to invoice processing
+    query?: string;
+
 }
 
 // Use this type for items that match nothing else
@@ -37,7 +40,7 @@ export interface Shoes {
 
 export interface Jerseys {
     type: 'Jerseys';
-    name: 'miami' | 'italy' | 'spain'| 'brazil'| 'manchester united'| 'manchester city'| 'liverpool'| 'arsenal';
+    name: 'miami' | 'italy' | 'spain' | 'brazil' | 'manchester united' | 'manchester city' | 'liverpool' | 'arsenal';
     optionSize?: 'small' | 'medium' | 'large' | 'xlarge';
 }
 
@@ -59,3 +62,9 @@ export interface DateTime {
     date?: string;
 }
 
+export type API = {
+    // print invoice
+    printInvoice(invoice: Invoice): string;
+    // answer invoice questions
+    answerQuestion(question: Question): string;
+}
