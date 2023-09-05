@@ -16,9 +16,18 @@ function generateInvoice(invoice: Invoice) {
     void invoice;
 }
 
+function printInvoice(invoice: Invoice) {
+    console.log(`Printing invoice to ${invoice.client.name}...`);
+}
+
+function answerQuestion(question: string) {
+    console.log(`Answering question: ${question}`);
+}
+
 // Process requests interactively or from the input file specified on the command line
 processRequests("QB Assistant> ", process.argv[2], async (request) => {
-    const response = await translator.translate(request);
+    let message = `${request}\n\ncontext:\ntoday is ${new Date().toLocaleDateString()}`;
+    const response = await translator.translate(message);
     if (!response.success) {
         console.log(response.message);
         return;
@@ -30,8 +39,10 @@ processRequests("QB Assistant> ", process.argv[2], async (request) => {
         for (const item of invoice.items) {
             if (item.type === "unknown") console.log(item.text);
         }
+        console.log("Can you tell me more?")
         return;
     }
     generateInvoice(invoice);
+    printInvoice(invoice);
     console.log("Success!");
 });
